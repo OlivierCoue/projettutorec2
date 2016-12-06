@@ -1,0 +1,180 @@
+\hypertarget{tp1__b_8c}{\section{tp1\-\_\-b.\-c File Reference}
+\label{tp1__b_8c}\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}}
+}
+
+
+2ieme etape du T\-P I\-L  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$ctype.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \hyperlink{unionTParamValue}{T\-Param\-Value}
+\begin{DoxyCompactList}\small\item\em union permettant de manipuler un entier/reel/chaine \end{DoxyCompactList}\item 
+struct \hyperlink{structTParamDef}{T\-Param\-Def}
+\begin{DoxyCompactList}\small\item\em represente un parametre de la ligne de commande (nom,type,valeur...) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5}{T\-Param\-Type} \{ \hyperlink{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5a8d6edc98669af667cc9e31340845978a}{P\-Tentier}, 
+\hyperlink{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5aea24482a7d983b9b03681bb4bb45be09}{P\-Treel}, 
+\hyperlink{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5abd88632411744fe81117441047cb065a}{P\-Tchaine}
+ \}
+\begin{DoxyCompactList}\small\item\em Constantes pour le type des parametres de la ligne de commande. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{tp1__b_8c_a7ebf667ae7249e66ffc7ed75ed38e13d}{Valeur\-Param\-To\-String} (\hyperlink{structTParamDef}{T\-Param\-Def} $\ast$\-\_\-tab\-Param, const int \-\_\-index)
+\begin{DoxyCompactList}\small\item\em fonction qui transforme la valeur d'un parametre en chaine de caractere \end{DoxyCompactList}\item 
+void \hyperlink{tp1__b_8c_a43aaeaf65d8f18907fd5abc1e1c40209}{Print\-Param} (\hyperlink{structTParamDef}{T\-Param\-Def} $\ast$\-\_\-tab\-Param, const int \-\_\-nb\-Param)
+\begin{DoxyCompactList}\small\item\em fonction qui affiche a l'ecran les parametre, leur type et leur valeur \end{DoxyCompactList}\item 
+int \hyperlink{tp1__b_8c_a9468b57ddf26450a9adb40b155fb1c16}{Read\-Param\-From\-Command\-Line} (\hyperlink{structTParamDef}{T\-Param\-Def} $\ast$\-\_\-tab\-Param, const int \-\_\-nb\-Param, const int \-\_\-argc, const char $\ast$\-\_\-argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em fonction qui analyse la ligne de commande pour en extraire des valeurs pour les parametres \end{DoxyCompactList}\item 
+int \hyperlink{tp1__b_8c_a065a3ee9a7ec43a06ab2fddbc3019a17}{main} (const int \-\_\-argc, const char $\ast$\-\_\-argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em fonction principale \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{tp1__b_8c_a45f6ef32ea85374f1fccef0bf09dd548}{Param\-Type\-Chaine} \mbox{[}$\,$\mbox{]} = \{\char`\"{}entier\char`\"{},\char`\"{}reel\char`\"{},\char`\"{}chaine\char`\"{}\}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+2ieme etape du T\-P I\-L \begin{DoxyAuthor}{Author}
+N\-M 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17/11/2014 
+\end{DoxyDate}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5}{\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!T\-Param\-Type@{T\-Param\-Type}}
+\index{T\-Param\-Type@{T\-Param\-Type}!tp1_b.c@{tp1\-\_\-b.\-c}}
+\subsubsection[{T\-Param\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf T\-Param\-Type}}}\label{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5}
+
+
+Constantes pour le type des parametres de la ligne de commande. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{P\-Tentier@{P\-Tentier}!tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}}\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!P\-Tentier@{P\-Tentier}}\item[{\em 
+\hypertarget{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5a8d6edc98669af667cc9e31340845978a}{P\-Tentier}\label{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5a8d6edc98669af667cc9e31340845978a}
+}]un nombre entier \index{P\-Treel@{P\-Treel}!tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}}\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!P\-Treel@{P\-Treel}}\item[{\em 
+\hypertarget{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5aea24482a7d983b9b03681bb4bb45be09}{P\-Treel}\label{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5aea24482a7d983b9b03681bb4bb45be09}
+}]un nombre reel \index{P\-Tchaine@{P\-Tchaine}!tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}}\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!P\-Tchaine@{P\-Tchaine}}\item[{\em 
+\hypertarget{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5abd88632411744fe81117441047cb065a}{P\-Tchaine}\label{tp1__b_8c_a07d4e5a29d675892ddc5f377533c06a5abd88632411744fe81117441047cb065a}
+}]une chaine de caracteres \end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\hypertarget{tp1__b_8c_a065a3ee9a7ec43a06ab2fddbc3019a17}{\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!main@{main}}
+\index{main@{main}!tp1_b.c@{tp1\-\_\-b.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-argc, }
+\item[{const char $\ast$}]{\-\_\-argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{tp1__b_8c_a065a3ee9a7ec43a06ab2fddbc3019a17}
+
+
+fonction principale 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-argc} & \-: nombre d'arguments passes sur la ligne de commande \\
+\hline
+\mbox{\tt in}  & {\em \-\_\-argv} & \-: tableau qui contient les chaines de caracteres passes en arguments du programme \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 si terminaison normale 
+\end{DoxyReturn}
+\hypertarget{tp1__b_8c_a43aaeaf65d8f18907fd5abc1e1c40209}{\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!Print\-Param@{Print\-Param}}
+\index{Print\-Param@{Print\-Param}!tp1_b.c@{tp1\-\_\-b.\-c}}
+\subsubsection[{Print\-Param}]{\setlength{\rightskip}{0pt plus 5cm}Print\-Param (
+\begin{DoxyParamCaption}
+\item[{{\bf T\-Param\-Def} $\ast$}]{\-\_\-tab\-Param, }
+\item[{const int}]{\-\_\-nb\-Param}
+\end{DoxyParamCaption}
+)}}\label{tp1__b_8c_a43aaeaf65d8f18907fd5abc1e1c40209}
+
+
+fonction qui affiche a l'ecran les parametre, leur type et leur valeur 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-tab\-Param} & tableau des parametres de la ligne de commande \\
+\hline
+\mbox{\tt in}  & {\em \-\_\-nb\-Param} & taille du tableau \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+neant 
+\end{DoxyReturn}
+\hypertarget{tp1__b_8c_a9468b57ddf26450a9adb40b155fb1c16}{\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!Read\-Param\-From\-Command\-Line@{Read\-Param\-From\-Command\-Line}}
+\index{Read\-Param\-From\-Command\-Line@{Read\-Param\-From\-Command\-Line}!tp1_b.c@{tp1\-\_\-b.\-c}}
+\subsubsection[{Read\-Param\-From\-Command\-Line}]{\setlength{\rightskip}{0pt plus 5cm}int Read\-Param\-From\-Command\-Line (
+\begin{DoxyParamCaption}
+\item[{{\bf T\-Param\-Def} $\ast$}]{\-\_\-tab\-Param, }
+\item[{const int}]{\-\_\-nb\-Param, }
+\item[{const int}]{\-\_\-argc, }
+\item[{const char $\ast$}]{\-\_\-argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{tp1__b_8c_a9468b57ddf26450a9adb40b155fb1c16}
+
+
+fonction qui analyse la ligne de commande pour en extraire des valeurs pour les parametres 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em \-\_\-tab\-Param} & tableau des parametres de la ligne de commande \\
+\hline
+\mbox{\tt in}  & {\em \-\_\-nb\-Param} & taille du tableau \\
+\hline
+\mbox{\tt in}  & {\em \-\_\-argc} & nombre d'arguments passes sur la ligne de commande \\
+\hline
+\mbox{\tt in}  & {\em \-\_\-argv} & tableau qui contient les chaines de caracteres passees en arguments du programme \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+$>$=0 \-: nombre de parametres mis a jour, $<$0 \-: erreur 
+\end{DoxyReturn}
+\hypertarget{tp1__b_8c_a7ebf667ae7249e66ffc7ed75ed38e13d}{\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!Valeur\-Param\-To\-String@{Valeur\-Param\-To\-String}}
+\index{Valeur\-Param\-To\-String@{Valeur\-Param\-To\-String}!tp1_b.c@{tp1\-\_\-b.\-c}}
+\subsubsection[{Valeur\-Param\-To\-String}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ Valeur\-Param\-To\-String (
+\begin{DoxyParamCaption}
+\item[{{\bf T\-Param\-Def} $\ast$}]{\-\_\-tab\-Param, }
+\item[{const int}]{\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{tp1__b_8c_a7ebf667ae7249e66ffc7ed75ed38e13d}
+
+
+fonction qui transforme la valeur d'un parametre en chaine de caractere 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-tab\-Param} & tableau des parametres de la ligne de commande \\
+\hline
+\mbox{\tt in}  & {\em \-\_\-index} & indice du parametre a considerer dans le tableau \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+une nouvelle chaine (qu'il faudra libérer par la suite) 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{tp1__b_8c_a45f6ef32ea85374f1fccef0bf09dd548}{\index{tp1\-\_\-b.\-c@{tp1\-\_\-b.\-c}!Param\-Type\-Chaine@{Param\-Type\-Chaine}}
+\index{Param\-Type\-Chaine@{Param\-Type\-Chaine}!tp1_b.c@{tp1\-\_\-b.\-c}}
+\subsubsection[{Param\-Type\-Chaine}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ Param\-Type\-Chaine\mbox{[}$\,$\mbox{]} = \{\char`\"{}entier\char`\"{},\char`\"{}reel\char`\"{},\char`\"{}chaine\char`\"{}\}}}\label{tp1__b_8c_a45f6ef32ea85374f1fccef0bf09dd548}
+constante chaine de caracteres pour l'affichage des types 
