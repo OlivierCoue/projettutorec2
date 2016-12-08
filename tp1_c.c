@@ -1,5 +1,5 @@
 /**
- * \file tp1_b.c
+ * \file tp1_c.c
  * \brief 2ieme etape du TP IL
  * \author OC & JT
  * \version 0.1

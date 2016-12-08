@@ -7,24 +7,10 @@
 
 var indexSectionsWithContent =
 {
-  0: "lmnprtv",
-  1: "t",
-  2: "t",
-  3: "mprv",
-  4: "lnptv",
-  5: "t",
-  6: "p"
 };
 
 var indexSectionNames =
 {
-  0: "all",
-  1: "classes",
-  2: "files",
-  3: "functions",
-  4: "variables",
-  5: "enums",
-  6: "enumvalues"
 };
 
 function convertToId(search)
