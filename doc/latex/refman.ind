@@ -1,0 +1,82 @@
+\begin{theindex}
+
+  \item {lettre}
+    \subitem {T\discretionary {-}{}{}Param\discretionary {-}{}{}Def}, 
+		\hyperpage{5}
+
+  \indexspace
+
+  \item {main}
+    \subitem {tp1\discretionary {-}{}{}\_\discretionary {-}{}{}b.\discretionary {-}{}{}c}, 
+		\hyperpage{8}
+
+  \indexspace
+
+  \item {nom}
+    \subitem {T\discretionary {-}{}{}Param\discretionary {-}{}{}Def}, 
+		\hyperpage{5}
+
+  \indexspace
+
+  \item {P\-Tchaine}
+    \subitem {tp1\-\_\-b.\-c}, \hyperpage{8}
+  \item {P\-Tentier}
+    \subitem {tp1\-\_\-b.\-c}, \hyperpage{8}
+  \item {P\-Treel}
+    \subitem {tp1\-\_\-b.\-c}, \hyperpage{8}
+  \item {Param\discretionary {-}{}{}Type\discretionary {-}{}{}Chaine}
+    \subitem {tp1\discretionary {-}{}{}\_\discretionary {-}{}{}b.\discretionary {-}{}{}c}, 
+		\hyperpage{10}
+  \item {Print\discretionary {-}{}{}Param}
+    \subitem {tp1\discretionary {-}{}{}\_\discretionary {-}{}{}b.\discretionary {-}{}{}c}, 
+		\hyperpage{8}
+
+  \indexspace
+
+  \item {Read\discretionary {-}{}{}Param\discretionary {-}{}{}From\discretionary {-}{}{}Command\discretionary {-}{}{}Line}
+    \subitem {tp1\discretionary {-}{}{}\_\discretionary {-}{}{}b.\discretionary {-}{}{}c}, 
+		\hyperpage{8}
+
+  \indexspace
+
+  \item {T\discretionary {-}{}{}Param\discretionary {-}{}{}Def}, 
+		\hyperpage{5}
+    \subitem {lettre}, \hyperpage{5}
+    \subitem {nom}, \hyperpage{5}
+    \subitem {type}, \hyperpage{5}
+    \subitem {valeur}, \hyperpage{5}
+  \item {T\discretionary {-}{}{}Param\discretionary {-}{}{}Type}
+    \subitem {tp1\discretionary {-}{}{}\_\discretionary {-}{}{}b.\discretionary {-}{}{}c}, 
+		\hyperpage{8}
+  \item {T\discretionary {-}{}{}Param\discretionary {-}{}{}Value}, 
+		\hyperpage{6}
+  \item {tp1\-\_\-b.\-c}
+    \subitem {P\-Tchaine}, \hyperpage{8}
+    \subitem {P\-Tentier}, \hyperpage{8}
+    \subitem {P\-Treel}, \hyperpage{8}
+  \item {tp1\discretionary {-}{}{}\_\discretionary {-}{}{}b.\discretionary {-}{}{}c}, 
+		\hyperpage{7}
+    \subitem {main}, \hyperpage{8}
+    \subitem {Param\discretionary {-}{}{}Type\discretionary {-}{}{}Chaine}, 
+		\hyperpage{10}
+    \subitem {Print\discretionary {-}{}{}Param}, \hyperpage{8}
+    \subitem {Read\discretionary {-}{}{}Param\discretionary {-}{}{}From\discretionary {-}{}{}Command\discretionary {-}{}{}Line}, 
+		\hyperpage{8}
+    \subitem {T\discretionary {-}{}{}Param\discretionary {-}{}{}Type}, 
+		\hyperpage{8}
+    \subitem {Valeur\discretionary {-}{}{}Param\discretionary {-}{}{}To\discretionary {-}{}{}String}, 
+		\hyperpage{10}
+  \item {type}
+    \subitem {T\discretionary {-}{}{}Param\discretionary {-}{}{}Def}, 
+		\hyperpage{5}
+
+  \indexspace
+
+  \item {valeur}
+    \subitem {T\discretionary {-}{}{}Param\discretionary {-}{}{}Def}, 
+		\hyperpage{5}
+  \item {Valeur\discretionary {-}{}{}Param\discretionary {-}{}{}To\discretionary {-}{}{}String}
+    \subitem {tp1\discretionary {-}{}{}\_\discretionary {-}{}{}b.\discretionary {-}{}{}c}, 
+		\hyperpage{10}
+
+\end{theindex}
