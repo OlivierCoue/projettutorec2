@@ -98,7 +98,13 @@ TLex * initLexData(char * _data) {
  * \return neant
  */
 void deleteLexData(TLex ** _lexData) {
-  free((*_lexData)->data);
+  int i;
+  free((*_lexData)->data);  
+  for(i=0;i<(*_lexData)->nbSymboles;i++){
+    if((*_lexData)->tableSymboles[i].type==JSON_STRING)
+      free((*_lexData)->tableSymboles[i].val.chaine);
+  }
+  free((*_lexData)->tableSymboles);
   free((*_lexData));
 }
 
@@ -173,6 +179,13 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val) {
   _lexData->nbSymboles++;
 }
 
+
+ /**
+ * \fn void parseString(TLex * _lexData)
+ * \brief fonction qui parse une chaine de charactère et l'ajoute à la table des symbole
+ *
+ * \param[in/out] _lexData donnees de l'analyseur lexical
+ */
 void parseString(TLex * _lexData){
   int len;
   char *buffer = strdup("");
@@ -182,12 +195,19 @@ void parseString(TLex * _lexData){
     buffer = (char*)realloc(buffer,len+2);
     buffer[len]=_lexData->startPos[0];
     buffer[len+1]='\0';
-    _lexData->startPos++;         
+    _lexData->startPos++;
   }
   addStringSymbolToLexData(_lexData, buffer);
   free(buffer);
 }
 
+ /**
+ * \fn int parseNumber(TLex * _lexData)
+ * \brief fonction qui parse un nombre (entier ou réel) et l'ajoute à la table des symbole
+ *
+ * \param[in/out] _lexData donnees de l'analyseur lexical
+  * \return un entier corespondant au code entier ou réel
+ */
 int parseNumber(TLex * _lexData){
   int len;
   char *buffer = strdup("");
@@ -201,11 +221,11 @@ int parseNumber(TLex * _lexData){
   }
 
   ptr = strchr(buffer,'.');
-  if(ptr==NULL){ /* if the string represant an integer */
+  if(ptr==NULL){
     addIntSymbolToLexData(_lexData, atoi(buffer));
     free(buffer);
     return JSON_INT_NUMBER;
-  }else{ /* if the string represant a real */
+  }else{
     addRealSymbolToLexData(_lexData, atof(buffer));
     free(buffer);
     return JSON_REAL_NUMBER;
@@ -225,14 +245,32 @@ int lex(TLex * _lexData) {
   if(_lexData->startPos[0]=='\0')
     return JSON_LEX_ERROR;
 
-  /* parse string */
+  while(_lexData->startPos[0]==' ')
+    _lexData->startPos++;
+
   if(_lexData->startPos[0]=='\"'){
     parseString(_lexData); 
     res = JSON_STRING;
-  }
-  /* parse number int or real */
-  else if(_lexData->startPos[0]>='0'&&_lexData->startPos[0]<='9'){
+  }else if(_lexData->startPos[0]>='0'&&_lexData->startPos[0]<='9'){
     res = parseNumber(_lexData);
+  }else if(_lexData->startPos[0]=='{')
+    res = JSON_LCB;
+  else if(_lexData->startPos[0]=='}')
+    res = JSON_RCB;
+  else if(_lexData->startPos[0]=='[')
+    res = JSON_LB;
+  else if(_lexData->startPos[0]==']')
+    res = JSON_RB;
+  else if(_lexData->startPos[0]==',')
+    res = JSON_COMMA;
+  else if(_lexData->startPos[0]==':')
+    res = JSON_COLON;
+  else if(_lexData->startPos[0]=='t'){
+    _lexData->startPos+=4;
+    res = JSON_TRUE;
+  }else if(_lexData->startPos[0]=='f'){
+    _lexData->startPos+=5;
+    res = JSON_FALSE;
   }
 
   _lexData->startPos++;
@@ -256,7 +294,7 @@ int main() {
   lex_data = initLexData(test);
   i = lex(lex_data);
   while (i!=JSON_LEX_ERROR) {
-    //printf("lex()=%d\n",i);
+    printf("lex()=%d\n",i);
     i = lex(lex_data);
   }
   printLexData(lex_data);
