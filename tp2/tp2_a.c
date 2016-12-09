@@ -240,12 +240,8 @@ int parseNumber(TLex * _lexData){
  * \return code d'identification de l'entite lexicale trouvee
 */
 int lex(TLex * _lexData) {  
-  int res;
-  /* check if its the end of the string */
-  if(_lexData->startPos[0]=='\0')
-    return JSON_LEX_ERROR;
-
-  while(_lexData->startPos[0]==' ')
+  int res=JSON_LEX_ERROR;
+  while(_lexData->startPos[0]==' '||_lexData->startPos[0]=='\n')
     _lexData->startPos++;
 
   if(_lexData->startPos[0]=='\"'){
