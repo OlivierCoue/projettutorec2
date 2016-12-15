@@ -240,8 +240,8 @@ int parseNumber(TLex * _lexData){
  * \return code d'identification de l'entite lexicale trouvee
 */
 int lex(TLex * _lexData) {  
-  int res=JSON_LEX_ERROR;
-  while(_lexData->startPos[0]==' '||_lexData->startPos[0]=='\n')
+  int res = JSON_LEX_ERROR;
+  while(_lexData->startPos[0]==' ' || _lexData->startPos[0]=='\n')
     _lexData->startPos++;
 
   if(_lexData->startPos[0]=='\"'){
@@ -249,24 +249,35 @@ int lex(TLex * _lexData) {
     res = JSON_STRING;
   }else if(_lexData->startPos[0]>='0'&&_lexData->startPos[0]<='9'){
     res = parseNumber(_lexData);
-  }else if(_lexData->startPos[0]=='{')
-    res = JSON_LCB;
-  else if(_lexData->startPos[0]=='}')
-    res = JSON_RCB;
-  else if(_lexData->startPos[0]=='[')
-    res = JSON_LB;
-  else if(_lexData->startPos[0]==']')
-    res = JSON_RB;
-  else if(_lexData->startPos[0]==',')
-    res = JSON_COMMA;
-  else if(_lexData->startPos[0]==':')
-    res = JSON_COLON;
-  else if(_lexData->startPos[0]=='t'){
-    _lexData->startPos+=4;
-    res = JSON_TRUE;
-  }else if(_lexData->startPos[0]=='f'){
-    _lexData->startPos+=5;
-    res = JSON_FALSE;
+  }else{
+    switch(_lexData->startPos[0]){
+      case '{':
+        res = JSON_LCB;
+        break;
+      case '}':
+        res = JSON_RCB;
+        break;
+      case '[':
+        res = JSON_LB;
+        break;
+      case ']':
+         res = JSON_RB;
+        break;
+      case ',':
+        res = JSON_COMMA;
+        break;
+      case ':':
+        res = JSON_COLON;
+        break;
+      case 't':
+        _lexData->startPos+=4;
+        res = JSON_TRUE;
+        break;
+      case 'f':
+        _lexData->startPos+=5;
+        res = JSON_FALSE;
+        break; 
+    }
   }
 
   _lexData->startPos++;
