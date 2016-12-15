@@ -145,7 +145,11 @@ void printLexData(TLex * _lexData) {
  * \return neant
  */
 void addIntSymbolToLexData(TLex * _lexData, const int _val) {
-  _lexData->tableSymboles = (TSymbole*)realloc(_lexData->tableSymboles, (_lexData->nbSymboles+1)*sizeof(TSymbole));  
+  _lexData->tableSymboles = (TSymbole*)realloc(_lexData->tableSymboles, (_lexData->nbSymboles+1)*sizeof(TSymbole));
+  if(_lexData->tableSymboles==NULL){
+    printf("Allocation error");
+    exit(-1);
+  } 
   _lexData->tableSymboles[_lexData->nbSymboles].type = JSON_INT_NUMBER;
   _lexData->tableSymboles[_lexData->nbSymboles].val.entier = _val;
   _lexData->nbSymboles++;
@@ -159,7 +163,11 @@ void addIntSymbolToLexData(TLex * _lexData, const int _val) {
  * \param[in] _val valeur reelle a ajouter
  */
 void addRealSymbolToLexData(TLex * _lexData, const float _val) {
-  _lexData->tableSymboles = (TSymbole*)realloc(_lexData->tableSymboles, (_lexData->nbSymboles+1)*sizeof(TSymbole));  
+  _lexData->tableSymboles = (TSymbole*)realloc(_lexData->tableSymboles, (_lexData->nbSymboles+1)*sizeof(TSymbole));
+  if(_lexData->tableSymboles==NULL){
+    printf("Allocation error");
+    exit(-1);
+  } 
   _lexData->tableSymboles[_lexData->nbSymboles].type = JSON_REAL_NUMBER;
   _lexData->tableSymboles[_lexData->nbSymboles].val.reel = _val;
   _lexData->nbSymboles++;
@@ -173,7 +181,11 @@ void addRealSymbolToLexData(TLex * _lexData, const float _val) {
  * \param[in] _val chaine a ajouter
  */
 void addStringSymbolToLexData(TLex * _lexData, char * _val) {
-  _lexData->tableSymboles = (TSymbole*)realloc(_lexData->tableSymboles, (_lexData->nbSymboles+1)*sizeof(TSymbole));  
+  _lexData->tableSymboles = (TSymbole*)realloc(_lexData->tableSymboles, (_lexData->nbSymboles+1)*sizeof(TSymbole));
+  if(_lexData->tableSymboles==NULL){
+    printf("Allocation error");
+    exit(-1);
+  }
   _lexData->tableSymboles[_lexData->nbSymboles].type = JSON_STRING;
   _lexData->tableSymboles[_lexData->nbSymboles].val.chaine = strdup(_val);
   _lexData->nbSymboles++;
