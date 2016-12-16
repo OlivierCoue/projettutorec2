@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
+//#define SHOW_ERRORS
 #define JSON_LEX_ERROR -1 /**< code d'erreur lexicale */
 #define JSON_TRUE 1 /**< entite lexicale true */
 #define JSON_FALSE 2 /**< entite lexicale false */
@@ -214,8 +215,10 @@ int parseString(TLex * _lexData){
     _lexData->startPos++;
     i++;
     /* si la chaine n'est pas fermée et que l'on arrive à la fin du 'fichier'  */
-    if(i>=toParseMaxSize)      
+    if(i>=toParseMaxSize){
+      free(buffer);
       return JSON_LEX_ERROR;    
+    }
   }
   addStringSymbolToLexData(_lexData, buffer);
   free(buffer);
@@ -242,10 +245,14 @@ int parseNumber(TLex * _lexData){
   while(isSep(_lexData->startPos[0])==0){
     if(_lexData->startPos[0]=='.'){
       dotCount++;
-      if(dotCount > 1)
+      if(dotCount > 1){
+        free(buffer);
         return JSON_LEX_ERROR;
-    }else if(_lexData->startPos[0]<'0' || _lexData->startPos[0]>'9')
+      }
+    }else if(_lexData->startPos[0]<'0' || _lexData->startPos[0]>'9'){
+      free(buffer);
       return JSON_LEX_ERROR;
+    }
 
     len = strlen(buffer);
     buffer = (char*)realloc(buffer,len+2);
