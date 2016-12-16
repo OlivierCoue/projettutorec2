@@ -62,7 +62,7 @@ typedef struct{
  * \return 1 (vrai) si _symb est un separateur, 0 (faux) sinon
  */
 int isSep(const char _symb) {
-  int res = (_symb=='{' | _symb=='}' | _symb=='[' | _symb==']' | _symb==',' | _symb==':') ? 1 : 0;
+  int res = (_symb==' ' | _symb=='{' | _symb=='}' | _symb=='[' | _symb==']' | _symb==',' | _symb==':') ? 1 : 0;
   return res;
 }
 
@@ -118,7 +118,7 @@ void deleteLexData(TLex ** _lexData) {
  */
 void printLexData(TLex * _lexData) {
   int i;
-  printf("\n\nTable Symboles:\n");
+  printf("\n\nTable Symboles:\n");    
   for(i=0;i<_lexData->nbSymboles;i++){
     printf("n°%d\n", i);
     switch(_lexData->tableSymboles[i].type){
@@ -133,6 +133,7 @@ void printLexData(TLex * _lexData) {
         break;
     }
   }
+  printf("\n%d symboles détectés \n%d lignes parsées\n", i, _lexData->nbLignes);    
 }
 
 
@@ -198,19 +199,28 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val) {
  *
  * \param[in/out] _lexData donnees de l'analyseur lexical
  */
-void parseString(TLex * _lexData){
-  int len;
+int parseString(TLex * _lexData){
+  int len, toParseMaxSize, i = 0;
   char *buffer = strdup("");
+  char *parseStart = _lexData->startPos;
   _lexData->startPos++;
+  toParseMaxSize = strlen(_lexData->startPos);
+
   while(_lexData->startPos[0]!='\"' || (_lexData->startPos-1)[0]=='\\'){            
     len = strlen(buffer);
     buffer = (char*)realloc(buffer,len+2);
     buffer[len]=_lexData->startPos[0];
     buffer[len+1]='\0';
     _lexData->startPos++;
+    i++;
+    /* si la chaine n'est pas fermée et que l'on arrive à la fin du 'fichier'  */
+    if(i>=toParseMaxSize)      
+      return JSON_LEX_ERROR;    
   }
   addStringSymbolToLexData(_lexData, buffer);
   free(buffer);
+
+  return JSON_STRING;
 }
 
  /**
@@ -221,10 +231,22 @@ void parseString(TLex * _lexData){
   * \return un entier corespondant au code entier ou réel
  */
 int parseNumber(TLex * _lexData){
-  int len;
+  int len, sign = 1, dotCount = 0;  
   char *buffer = strdup("");
-  char *ptr;
-  while(isSep(_lexData->startPos[0])==0){    
+
+  if(_lexData->startPos[0]=='-'){
+    sign=-1;
+    _lexData->startPos++;
+  }
+
+  while(isSep(_lexData->startPos[0])==0){
+    if(_lexData->startPos[0]=='.'){
+      dotCount++;
+      if(dotCount > 1)
+        return JSON_LEX_ERROR;
+    }else if(_lexData->startPos[0]<'0' || _lexData->startPos[0]>'9')
+      return JSON_LEX_ERROR;
+
     len = strlen(buffer);
     buffer = (char*)realloc(buffer,len+2);
     buffer[len]=_lexData->startPos[0];
@@ -232,13 +254,12 @@ int parseNumber(TLex * _lexData){
     _lexData->startPos++;
   }
 
-  ptr = strchr(buffer,'.');
-  if(ptr==NULL){
-    addIntSymbolToLexData(_lexData, atoi(buffer));
+  if(dotCount == 0){
+    addIntSymbolToLexData(_lexData, sign*atoi(buffer));
     free(buffer);
     return JSON_INT_NUMBER;
   }else{
-    addRealSymbolToLexData(_lexData, atof(buffer));
+    addRealSymbolToLexData(_lexData, sign*atof(buffer));
     free(buffer);
     return JSON_REAL_NUMBER;
   }
@@ -253,14 +274,29 @@ int parseNumber(TLex * _lexData){
 */
 int lex(TLex * _lexData) {  
   int res = JSON_LEX_ERROR;
-  while(_lexData->startPos[0]==' ' || _lexData->startPos[0]=='\n')
-    _lexData->startPos++;
 
+  /* on ignore les espaces */
+  while(_lexData->startPos[0]==' ' || _lexData->startPos[0]=='\n'){
+    if(_lexData->startPos[0]=='\n')
+      _lexData->nbLignes++;
+    _lexData->startPos++;
+  }
+
+  /* si c'est une chaine de charactère */
   if(_lexData->startPos[0]=='\"'){
-    parseString(_lexData); 
-    res = JSON_STRING;
-  }else if(_lexData->startPos[0]>='0'&&_lexData->startPos[0]<='9'){
+    res = parseString(_lexData);
+    #ifdef SHOW_ERRORS
+      if(res==JSON_LEX_ERROR)
+        printf("Error while parsing string line %d\n", _lexData->nbLignes);
+    #endif
+  }
+  /* si c'est un nombre */
+  else if(_lexData->startPos[0]>='0' && _lexData->startPos[0]<='9' || _lexData->startPos[0]=='-'){
     res = parseNumber(_lexData);
+    #ifdef SHOW_ERRORS
+      if(res==JSON_LEX_ERROR)
+        printf("Error while parsing number line %d\n", _lexData->nbLignes);
+    #endif
   }else{
     switch(_lexData->startPos[0]){
       case '{':
@@ -281,13 +317,27 @@ int lex(TLex * _lexData) {
       case ':':
         res = JSON_COLON;
         break;
-      case 't':
-        _lexData->startPos+=4;
-        res = JSON_TRUE;
+      case 't': /* si on trouve 'true' */
+        if(_lexData->startPos[1]=='r' && _lexData->startPos[2]=='u' && _lexData->startPos[3]=='e' && isSep(_lexData->startPos[4])){
+          _lexData->startPos+=4;
+          res = JSON_TRUE;
+        }else{
+          res = JSON_LEX_ERROR;
+          #ifdef SHOW_ERRORS      
+            printf("Error while parsing value 'true' line %d\n", _lexData->nbLignes);
+          #endif
+        }
         break;
-      case 'f':
-        _lexData->startPos+=5;
-        res = JSON_FALSE;
+      case 'f': /* si on trouve 'false' */
+        if(_lexData->startPos[1]=='a' && _lexData->startPos[2]=='l' && _lexData->startPos[3]=='s' && _lexData->startPos[4]=='e' && isSep(_lexData->startPos[5])){
+          _lexData->startPos+=5;
+          res = JSON_FALSE;
+        }else{
+          res = JSON_LEX_ERROR;
+          #ifdef SHOW_ERRORS      
+            printf("Error while parsing value 'false' line %d\n", _lexData->nbLignes);
+          #endif
+        }
         break; 
     }
   }
@@ -306,7 +356,7 @@ int main() {
   int i;
   TLex * lex_data;
 
-  test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+  test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": false }");
   printf("%s",test);
   printf("\n");
 
